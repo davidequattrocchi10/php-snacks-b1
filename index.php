@@ -11,6 +11,18 @@ $matches = [
     ['home' => 'Reggiana', 'away' => 'Scafati', 'points_home' => '102', 'points_away' => '87']
 ];
 ?>
+<!-- Snack 2
+Con un form passare come parametri GET name, mail e age e verificare (cercando i metodi che non conosciamo nella documentazione) 
+che name sia più lungo di 3 caratteri, che mail contenga un punto e una chiocciola e che age sia un numero. 
+Se tutto è ok stampare “Accesso riuscito”, altrimenti “Accesso negato”
+-->
+<?php
+$check_name = strlen($_GET['name']) <= 3;
+$check_mail = (!str_contains($_GET['mail'], '@') || !str_contains($_GET['mail'], '.'));
+$check_age = !is_numeric($_GET['age']);
+?>
+
+
 <!-- Snack 3 
 Creare un array di array. Ogni array figlio avrà come chiave una data in questo formato: DD-MM-YYYY es 01-01-2007 
 e come valore un array di post associati a quella data. Stampare ogni data con i relativi post.
@@ -140,6 +152,39 @@ $students = [
         </span> <br>
     <?php endforeach; ?>
 
+    <!-- Snack 2  -->
+    <h2>Snack 2</h2>
+    <form action="" method="get">
+        <div class="mb-3">
+            <label for="name"> Name</label>
+            <input placeholder="Type your name" class="form-control" type="text" name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="mail"> Mail</label>
+            <input placeholder="Type your mail" class="form-control" type="text" name="mail">
+        </div>
+
+        <div class="mb-3">
+            <label for="age"> Age</label>
+            <input placeholder="Type your age" class="form-control" type="text" name="age">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <?php
+    if (empty($_GET['name']) || empty($_GET['mail']) || empty($_GET['age'])) {
+        echo 'error';
+    } elseif ($check_name) {
+        echo 'Cannot Access';
+    } elseif ($check_mail) {
+        echo 'Cannot Access';
+    } elseif ($check_age) {
+        echo 'Cannot Access';
+    } else {
+        echo 'Welcome ' . $_GET['name'] . "!";
+    }
+    ?>
+
     <!-- Snack 3  -->
     <h2>Snack 3</h2>
     <?php foreach ($posts as $key => $post) : ?>
@@ -189,10 +234,16 @@ $students = [
 
 
 
+
+
 </body>
 
 </html>
 <style>
+    body {
+        padding: 1rem;
+    }
+
     h2 {
         padding: 1rem;
     }
